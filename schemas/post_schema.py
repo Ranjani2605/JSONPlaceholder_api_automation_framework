@@ -1,0 +1,23 @@
+post_schema = {
+    "type" : "object",
+    "properties": {
+        "userId": {"type" : "integer"},
+        "id" : {"type" : "integer"},
+        "title" : {"type": "string"},
+        "body" : {"type": "string"}
+    },
+    "required": ["userId", "id", "title", "body"]
+}
+
+
+created_post_schema = {
+    "type" : "object",
+    "properties" : {
+        "userId" : {"type" : "integer"},
+        "id" : {"type" : "integer"},
+        "title" : {"type" : "string"},
+        "body": {"type": "string"}
+    },
+    "required": ["userId", "id", "title", "body"]
+
+}
