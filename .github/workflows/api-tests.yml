@@ -1,0 +1,54 @@
+name: API Automation Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  api_tests:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    env:
+      ENV: qa
+      TIMEOUT: 10
+
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run API tests and generate reports
+        run: |
+          New-Item -ItemType Directory -Force reports, reports\allure-results | Out-Null
+          pytest tests -m "api" --html=reports/pytest-report.html --self-contained-html --alluredir=reports/allure-results
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-artifacts
+          path: reports
+          if-no-files-found: warn

@@ -7,8 +7,8 @@ from utils.logger import get_logger
 class BaseClient:
 
     def __init__(self):
-        self.base_url = config.get_base_url()
-        self.timeout = config.TIMEOUT
+        self.base_url = config.Config.get_base_url()
+        self.timeout = config.Config.TIMEOUT
         self.logger = get_logger(self.__class__.__name__)
 
 

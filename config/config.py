@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-class config:
+class Config:
     ENV = os.getenv("ENV", "qa")
 
     BASE_URLS = {
@@ -17,5 +17,5 @@ class config:
     TIMEOUT = int(os.getenv("TIMEOUT", 10))
 
     @classmethod
-    def get_base_url(self):
-        return cls.BASE_URLS[self.ENV]
+    def get_base_url(cls):
+        return cls.BASE_URLS[cls.ENV]

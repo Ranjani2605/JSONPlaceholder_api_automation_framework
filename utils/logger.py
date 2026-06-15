@@ -10,13 +10,13 @@ def get_logger(name):
 
     if not logger.handlers:
         file_handler = logging.FileHandler("reports/api_test.log")
-        console_handler = logging.streamHandler()
+        console_handler = logging.StreamHandler()
 
-        formatter = logging.formatter(
+        formatter = logging.Formatter(
             "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
         )
 
-        file.handler.setFormatter(formatter)
+        file_handler.setFormatter(formatter)
         console_handler.setFormatter(formatter)
 
         logger.addHandler(file_handler)
